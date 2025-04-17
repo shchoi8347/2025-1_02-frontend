@@ -4,41 +4,30 @@ import React, { useState, useEffect } from "react";
 import { Container, List, Paper } from "@mui/material";
 import AddTodo from "./AddTodo";
 import { API_BASE_URL } from "./api-config";
+import { call } from "./service/ApiService"
 
 function App() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    const requestOptions = {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    };
+    call("/todo", "GET", null)
+      .then( (response) => setItems(response.data));
+    },[]);
 
-    fetch(API_BASE_URL + "/todo", requestOptions)
-      .then((response) => response.json())
-      .then(
-        (response) => {
-          setItems(response.data);
-        },
-      )
-      .catch( (e) => { });
-  }, []);
 
   const addItem = (item) => {
-    item.id = "ID-" + items.length;
-    item.done = false;
-
-    setItems([...items, item]);
-    console.log("items: ", items);
+    call("/todo", "POST", item)
+      .then( (response) => setItems(response.data));
   };
 
   const deleteItem = (item) => {
-    const newItems = items.filter((e) => e.id !== item.id);
-    setItems([...newItems]);
+    call("/todo", "DELETE", item)
+      .then( (response) => setItems(response.data));
   };
 
-  const editItem = () => {
-    setItems([...items]); // items 상태를 변경함 => App 컴포넌트가 리렌더링 됨
+  const editItem = (item) => {
+    call("/todo", "PUT", item)
+      .then((response) => setItems(response.data));
   };
 
   let todoItems = items.length > 0 && (
