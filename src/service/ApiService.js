@@ -39,7 +39,7 @@ export function signin(userDTO) {
     return call("/auth/signin", "POST", userDTO)
         .then( (response) => {
             // console.log("response: ", response);
-            alert("로그인 토큰: " + response.token);
+            //alert("로그인 토큰: " + response.token);
             if(response.token) {
                 localStorage.setItem("ACCESS_TOKEN", response.token);
                 window.location.href = "/";
@@ -47,8 +47,13 @@ export function signin(userDTO) {
         });
 }
 
-
+// 로그아웃 함수
 export function signout() {
     localStorage.setItem("ACCESS_TOKEN", null);
     window.location.href = "/login";
+}
+
+// 계정 생성 함수
+export function signup(userDTO) {
+    return call("/auth/signup", "POST", userDTO);
 }

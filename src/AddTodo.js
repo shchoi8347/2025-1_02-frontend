@@ -23,11 +23,11 @@ const AddTodo = (props) => {
 
     return (
         <Grid container style={{marginTop:20}}>
-            <Grid xs={11} md={11} lg={6} item style={{paddingRight:16}}>
+            <Grid xs={11} md={11} lg={12} item style={{paddingRight:16}}>
                 <TextField placeholder="Add Todo here" fullWidth 
                 onChange = {onInputChange} onKeyPress={enterKeyEventHandler} value={item.title} />
             </Grid>
-            <Grid xs={1} md={1} lg={6} item>
+            <Grid xs={1} md={1} lg={1} item>
                 <Button fullWidth style={{height:'100%'}} color="secondary" variant="contained"
                     onClick = {onButtonClick}>
                     +
